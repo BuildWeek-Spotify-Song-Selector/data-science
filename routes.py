@@ -16,7 +16,7 @@ SPOT_CLIENT_SECRET = "c9a76a25685b4899ae1964898df71dab"
 # this is the default route to load the application
 @app.route('/')
 def index():
-      return 'This is my backend'
+      return 'This is the index page'
 
 # This route accepts a track id parammter in the path
 # and calls spotify to rettive track information and metadata

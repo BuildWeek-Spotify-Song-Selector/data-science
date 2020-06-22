@@ -8,7 +8,7 @@ import pandas as pd
 from pprint import pprint
 from dotenv import load_dotenv
 
-load_dotenv()
+
 
 SPOT_CLIENT_ID = "417789dcea984a95a3d5f4b325787e46"
 SPOT_CLIENT_SECRET = "c9a76a25685b4899ae1964898df71dab"
