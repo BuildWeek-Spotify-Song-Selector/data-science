@@ -29,7 +29,7 @@ data science repo for spotify song selector
 
 "/database/generate_track_csv" : generate song data into tracks.csv
 
-"/model/predict" : call model for prediction of next song
+"/model/track/<track_id>" : call model for prediction of next song
 
 "/spotipy/get_track" : "get spotipy track data"
                         -- params = {"track": track name/song title  ex. "Never Gonna Give You Up"}

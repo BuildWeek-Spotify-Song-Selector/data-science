@@ -6,7 +6,7 @@ model_routes = Blueprint("model_routes", __name__)
 
 
 
-@model_routes.route('/track/<track_id>')
+@model_routes.route('/model/track/<track_id>')
 def song_info(track_id):
     # track_id = request.args['track_id']
     print('-------------trackid--------------------')
