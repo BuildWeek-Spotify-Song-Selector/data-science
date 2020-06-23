@@ -1,6 +1,7 @@
 
 from flask import Blueprint, request
 from app.services import spotipy_service
+import json
 
 spotipy_routes = Blueprint("spotipy_routes", __name__)
 
@@ -19,7 +20,7 @@ def get_track():
         result = sp.search(q=track)
         return json.dumps(result)
 
-    except e as Exception:
+    except Exception as e:
         print(e)
         return "Error with search\n" + str(e)
 
@@ -43,6 +44,6 @@ def get_audio_features():
 
         return json.dumps(result)
 
-    except e as Exception:
+    except Exception as e:
         print(e)
         return "Error with search\n" + str(e)

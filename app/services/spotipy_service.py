@@ -32,7 +32,8 @@ def spotipy_api():
 if __name__ == "__main__":
 
     # generate_track_csv()
-    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+    # sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+    sp = spotipy_api()
     # pprint(sp.recommendation_genre_seeds())
 
     # result = sp.search(q="Walking On The Sun")
@@ -40,7 +41,7 @@ if __name__ == "__main__":
 
     urn = 'spotify:track:2MLHyLy5z5l5YRp7momlgw'
     track = sp.track(urn)
-    # pprint(track)
+    pprint(track)
 
 
     # seed_artists = ['3jOstUTkEu2JkjvRdBA5Gu']

@@ -8,9 +8,6 @@ database_routes = Blueprint("database_routes", __name__)
 
 
 
-
-
-
 @database_routes.route("/database/get_all_songs", methods=["GET"])
 def get_all_songs():
     df = pd.read_csv("app/song_list5.csv", sep=",")
