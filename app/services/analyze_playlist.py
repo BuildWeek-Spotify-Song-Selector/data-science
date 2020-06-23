@@ -1,4 +1,4 @@
-ef analyze_playlist(creator, playlist_id):
+def analyze_playlist(creator, playlist_id):
 
     # Create empty dataframe
     playlist_features_list = ["artist", "album", "track_name", "track_id",

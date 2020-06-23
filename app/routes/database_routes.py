@@ -10,7 +10,7 @@ database_routes = Blueprint("database_routes", __name__)
 
 @database_routes.route("/database/get_all_songs", methods=["GET"])
 def get_all_songs():
-    df = pd.read_csv("app/song_list5.csv", sep=",")
+    df = pd.read_csv("app/services/song_lists/song_list5.csv", sep=",")
 
     print(df.shape)
 
@@ -39,7 +39,7 @@ def generate_track_csv():
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 
-    f = open("../tracks.csv", "a")
+    f = open("app/services/song_lists/tracks.csv", "a")
     headers = ['danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness',\
                 'liveness', 'valence', 'tempo', 'type', 'id', 'uri', 'track_href', 'analysis_url', 'duration_ms', 'time_signature']
 
