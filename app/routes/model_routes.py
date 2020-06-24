@@ -2,6 +2,7 @@
 from flask import Blueprint, request
 from app.services import spotipy_service
 from app.services.model import Prediction_Model
+from app.log.log_error import log_error
 import json
 
 model_routes = Blueprint("model_routes", __name__)
@@ -41,11 +42,14 @@ def song_info():
         prediction = call_model(track)
 
     except Exception as e:
-        print(e)
+        log_error(e)
         return "Error with request.."
 
 
-    return json.dumps([float(prediction[0][0]), float(prediction[0][1])])
+    track['song_id'] = track_id
+    track['artist'] = meta[0]['artist']
+
+    return json.dumps({"prediction" : [float(prediction[0][0]), float(prediction[0][1])], "track" : track})
 
   # this method calls the saved ML model based
   # and receives a pandas dataframe with the predictions
