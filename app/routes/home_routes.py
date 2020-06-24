@@ -18,9 +18,10 @@ def about():
                  "/about" : "route info",
                  "/database/get_all_songs" : "get json of song data",
                  "/database/generate_track_csv" : "generate song data",
-                 '/track/<track_id>' : "call model for prediction",
+                 '/model/pred' : "call model for prediction",
                  "/spotipy/get_track" : "get spotipy track data",
-                 "/spotipy/get_audio_features" : "audio features for list or single track_id"
+                 "/spotipy/get_audio_features" : "audio features for list or single track_id",
+                 "/log/get_logs" : "get error logs"
                  }
 
     return json.dumps(functions)

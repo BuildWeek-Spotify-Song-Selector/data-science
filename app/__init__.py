@@ -1,7 +1,7 @@
 
 from flask import Flask
 import threading, webbrowser
-from app.routes.home import home_routes
+from app.routes.home_routes import home_routes
 from app.routes.database_routes import database_routes
 from app.routes.model_routes import model_routes
 from app.routes.spotipy_routes import spotipy_routes
