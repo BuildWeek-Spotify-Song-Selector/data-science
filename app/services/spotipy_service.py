@@ -3,11 +3,11 @@ import spotipy
 from spotipy import util
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from pprint import pprint
 
 
-load_dotenv()
+# load_dotenv()
 
 #
 # util.prompt_for_user_token("bi423x859c25z4xnvy06kquj4",
@@ -17,12 +17,12 @@ load_dotenv()
 #                            redirect_uri='http://localhost')
 
 
-os.environ["SPOTIPY_CLIENT_ID"] = os.getenv("SPOT_CLIENT_ID")
-os.environ["SPOTIPY_CLIENT_SECRET"] = os.getenv("SPOT_CLIENT_SECRET")
+client_id = '9a4e32732c6045289b1d85705c247a0f'
+client_secret = '0ec437eade2b42ef878ea7009de904ef'
 
 
 def spotipy_api():
-    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
 
     return sp
 
