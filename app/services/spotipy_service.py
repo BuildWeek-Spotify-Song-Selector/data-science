@@ -28,12 +28,12 @@ if __name__ == "__main__":
     sp = spotipy_api()
     # pprint(sp.recommendation_genre_seeds())
 
-    # result = sp.search(q="Walking On The Sun")
-    # print(result)
+    result = sp.search(q="Walking On The Sun")
+    pprint(result)
 
-    urn = 'spotify:track:2MLHyLy5z5l5YRp7momlgw'
-    track = sp.track(urn)
-    pprint(track)
+    # urn = 'spotify:track:2MLHyLy5z5l5YRp7momlgw'
+    # track = sp.track(urn)
+    # pprint(track)
 
 
     # seed_artists = ['3jOstUTkEu2JkjvRdBA5Gu']
