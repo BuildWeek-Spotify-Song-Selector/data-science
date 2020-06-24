@@ -21,7 +21,7 @@ def index():
 # This route accepts a track id parammter in the path
 # and calls spotify to rettive track information and metadata
 # This information will be passed to the saved ML model
-@app.route('/track/<track_id>')
+@app.route('/track/<track_id>', methods = ["GET","POST"])
 def song_info(track_id):
     # track_id = request.args['track_id']
     print('-------------trackid--------------------')
