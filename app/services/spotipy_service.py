@@ -9,8 +9,8 @@ from pprint import pprint
 
 load_dotenv()
 
-os.environ['SPOTIPY_CLIENT_ID'] = os.getenv('SPOT_CLIENT_ID')
-os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv('SPOT_CLIENT_SECRET')
+os.environ['SPOTIPY_CLIENT_ID'] = os.getenv('client_id')
+os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv('client_secret')
 
 
 def spotipy_api():
@@ -28,8 +28,11 @@ if __name__ == "__main__":
     sp = spotipy_api()
     # pprint(sp.recommendation_genre_seeds())
 
-    result = sp.search(q="Walking On The Sun")
+    result = sp.track('2MLHyLy5z5l5YRp7momlgw')
     pprint(result)
+
+    print(result['artists'][0]['name'])
+    print(result['name'])
 
     # urn = 'spotify:track:2MLHyLy5z5l5YRp7momlgw'
     # track = sp.track(urn)

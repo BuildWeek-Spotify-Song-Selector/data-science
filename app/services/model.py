@@ -52,8 +52,6 @@ class Prediction_Model:
         return [x_data]
 
 
-model = Prediction_Model()
-
 
 if __name__ == "__main__":
     data = np.atleast_2d([ 4.56000e-01,  2.55000e-01,  9.00000e+00, -1.58050e+01, 1.00000e+00,  4.80000e-02,  9.46000e-01,  1.70000e-01, 9.51000e-01,  5.32000e-02,  1.16424e+02,  2.53067e+05,4.00000e+00])

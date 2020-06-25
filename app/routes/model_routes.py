@@ -1,7 +1,7 @@
 
 from flask import Blueprint, request
 from app.services import spotipy_service
-from app.services.model import Prediction_Model, model
+from app.services.model import Prediction_Model
 from app.log.log_error import log_error
 import json
 
@@ -47,7 +47,8 @@ def song_info():
 
 
     track['song_id'] = song_id
-    track['artist'] = meta[0]['artist']
+    track['track'] = meta['name']
+    track['artist'] = meta['artists'][0]['name']
 
     return json.dumps({"prediction" : [float(prediction[0][0]), float(prediction[0][1])],
                        "track" : track})
@@ -56,8 +57,7 @@ def song_info():
   # and receives a pandas dataframe with the predictions
 def call_model(track):
     # call saved model snd get predictions
-    if not model:
-        model = Prediction_Model()
+    model = Prediction_Model()
     track_prediction = model.predict(track)
 
     return track_prediction

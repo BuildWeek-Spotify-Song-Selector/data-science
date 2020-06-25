@@ -30,8 +30,8 @@ def get_audio_features(song_id):
     pprint(json.loads(response.text))
 
 
-def get_model_prediction(track_id):
-    params = {"track_id" : track_id}
+def get_model_prediction(song_id):
+    params = {"song_id" : song_id}
     headers = {"content-type" : "application/json"}
     response = requests.get(http + "/model/pred", params=params, headers=headers)
 
@@ -42,6 +42,6 @@ def get_model_prediction(track_id):
 if __name__ == "__main__":
     #get_track("Walking On the Sun")
     #get_audio_features("2MLHyLy5z5l5YRp7momlgw")
-    #get_model_prediction("2MLHyLy5z5l5YRp7momlgw")
-    get_model_prediction("2MLHyLyp7momlgw")
+    get_model_prediction("2MLHyLy5z5l5YRp7momlgw")
+    #get_model_prediction("2MLHyLyp7momlgw")
     # print(1+2)
