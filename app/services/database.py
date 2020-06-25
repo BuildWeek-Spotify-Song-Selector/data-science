@@ -3,7 +3,8 @@
 import pymongo
 import pandas as pd
 import json
-
+from app.routes.model_routes import call_model
+from app.services.model import Prediction_Model, model
 
 class Song_Database:
 
@@ -67,16 +68,25 @@ class Song_Database:
         records = json.loads(df.to_json(orient="records"))
         self.collection.insert_many(records)
 
+    def set_initial_predictions(self):
+
+        tracks = self.collection.find()
+
+        i = len(tracks)
+        for x in tracks:
+            print(i, "remaining..")
+            prediction = call_model(x)
+            self.add_prediction(x, prediction[0])
+            i-=1
+
 
 
 if __name__ == "__main__":
 
     song_database = Song_Database()
 
-    tracks = song_database.get_predictions()
+    tracks = song_database.collection.find()
 
-    for x in tracks:
-        print(x)
 
     # track = song_database.get_track("6t9dKp7Nf1t4HpYXOdeVNl")
     # print(f"track: {track}")
