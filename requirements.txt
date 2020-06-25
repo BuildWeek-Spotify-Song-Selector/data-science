@@ -1,5 +1,6 @@
 
 
+scipy==1.4.1
 file_read_backwards==2.0.0
 Flask==1.1.2
 Flask-Cors==3.0.8
