@@ -50,12 +50,10 @@ class Song_Database:
         self.collection.replace_one({"songid": track['songid']}, track, upsert=True)
 
 
-    def get_prediction(self, songid):
+    def get_predictions(self):
 
-        track = self.collection.find_one({"songid" : songid})
-
-        if 'prediction' in track.keys():
-            return track['prediction']
+        tracks = self.collection.find({"prediction": {"$exists" : True}})
+        return tracks
 
 
     def add_prediction(self, track, prediction):
@@ -66,9 +64,7 @@ class Song_Database:
     def import_song_data(self):
 
         df = pd.read_csv("song_lists/song_list5.csv", sep=",")
-
         records = json.loads(df.to_json(orient="records"))
-
         self.collection.insert_many(records)
 
 
@@ -77,15 +73,20 @@ if __name__ == "__main__":
 
     song_database = Song_Database()
 
-    track = song_database.get_track("6t9dKp7Nf1t4HpYXOdeVNl")
-    print(f"track: {track}")
-    track['prediction'] = [2,32]
+    tracks = song_database.get_predictions()
 
-    song_database.add_prediction(track, [.4,.1])
-    # song_database.update_track(track)
+    for x in tracks:
+        print(x)
 
-    track = song_database.get_track("6t9dKp7Nf1t4HpYXOdeVNl")
-    print(track)
+    # track = song_database.get_track("6t9dKp7Nf1t4HpYXOdeVNl")
+    # print(f"track: {track}")
+    # track['prediction'] = [2,32]
+    #
+    # song_database.add_prediction(track, [.4,.1])
+    # # song_database.update_track(track)
+    #
+    # track = song_database.get_track("6t9dKp7Nf1t4HpYXOdeVNl")
+    # print(track)
 
 
     # features = ['songid','artist','track','danceability','energy','key','loudness','mode','speechiness','acousticness','instrumentalness','liveness','valence','tempo','duration_ms','time_signature']

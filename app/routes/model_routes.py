@@ -39,40 +39,39 @@ def song_info():
         'valence' : features[0]['valence'],
         'tempo' : features[0]['tempo'],
         'duration_ms' : features[0]['duration_ms'],
-        'time_signature': features[0]['time_signature']
+        'time_signature': features[0]['time_signature'],
+        'song_id' : song_id,
+        'track' : meta['name'],,
+        'artist' : meta['artists'][0]['name']
         }
+
+        # get song database
+        db = Song_Database()
+
+        # look up if song apperars in database
+        lookup_track = db.get_track(song_id)
+
+        # add song if not in database
+        if not lookup_track:
+            prediction = call_model(track)
+            track['prediction'] = prediction[0]
+            db.add_track(track)
+
+        else:
+            if 'prediction' in lookup_track.keys():
+                prediction = lookup_track['prediction']
+            else:
+                prediction = call_model(track)
+                db.add_prediction(lookup_track, prediction[0])
+
+        # run closest vectors function
+        tracks = find_closest_neighbors(song_id, prediction)
+
+        return json.dumps(tracks)
 
     except Exception as e:
         log_error(e)
         return "Error with request.."
-
-
-    track['songid'] = song_id
-    track['track'] = meta['name']
-    track['artist'] = meta['artists'][0]['name']
-
-    db = Song_Database()
-
-    # look up if song apperars in database
-    lookup_track = db.get_track(song_id)
-
-    # add song if not in database
-    if not lookup_track:
-        prediction = call_model(track)
-        track['prediction'] = prediction[0]
-        db.add_track(track)
-
-    else:
-        if 'prediction' in lookup_track.keys():
-            prediction = lookup_track['prediction']
-        else:
-            prediction = call_model(track)
-            db.add_prediction(lookup_track, prediction[0])
-
-    # run closest vectors function
-    tracks = find_closest_neighbors(song_id, prediction)
-
-    return json.dumps(tracks)
 
   # this method calls the saved ML model based
   # and receives a pandas dataframe with the predictions
