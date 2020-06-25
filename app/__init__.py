@@ -1,12 +1,15 @@
 
 from flask import Flask
 import threading, webbrowser
-from app.routes.home import home_routes
+from flask_cors import CORS
+
+from app.routes.home_routes import home_routes
 from app.routes.database_routes import database_routes
 from app.routes.model_routes import model_routes
 from app.routes.spotipy_routes import spotipy_routes
-from flask_cors import CORS
+from app.routes.log_routes import log_routes
 
+from app.services.model import Prediction_Model
 
 
 def create_app():
@@ -16,8 +19,11 @@ def create_app():
     app.register_blueprint(database_routes)
     app.register_blueprint(model_routes)
     app.register_blueprint(spotipy_routes)
+    app.register_blueprint(log_routes)
 
     CORS(app)
+
+
 
     return app
 

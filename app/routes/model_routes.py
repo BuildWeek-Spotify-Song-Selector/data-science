@@ -1,10 +1,13 @@
 
 from flask import Blueprint, request
 from app.services import spotipy_service
-from app.services.model import Prediction_Model
+from app.services.model import Prediction_Model, model
+from app.log.log_error import log_error
 import json
 
+
 model_routes = Blueprint("model_routes", __name__)
+
 
 
 
@@ -12,13 +15,13 @@ model_routes = Blueprint("model_routes", __name__)
 def song_info():
 
     try:
-        track_id = request.args.get('track_id')
+        song_id = request.args.get('song_id')
         print('-------------trackid--------------------')
 
         # spotify object to access API
         sp = spotipy_service.spotipy_api()
-        meta = sp.track(track_id)
-        features = sp.audio_features(tracks=[track_id])
+        meta = sp.track(song_id)
+        features = sp.audio_features(tracks=[song_id])
 
         print("features: {features}")
 
@@ -41,17 +44,21 @@ def song_info():
         prediction = call_model(track)
 
     except Exception as e:
-        print(e)
+        log_error(e)
         return "Error with request.."
 
 
-    return json.dumps([float(prediction[0][0]), float(prediction[0][1])])
+    track['song_id'] = song_id
+    track['track'] = meta['name']
+    track['artist'] = meta['artists'][0]['name']
+
+    return json.dumps({"prediction" : [float(prediction[0][0]), float(prediction[0][1])],
+                       "track" : track})
 
   # this method calls the saved ML model based
   # and receives a pandas dataframe with the predictions
 def call_model(track):
     # call saved model snd get predictions
-    model = Prediction_Model()
     track_prediction = model.predict(track)
 
     return track_prediction

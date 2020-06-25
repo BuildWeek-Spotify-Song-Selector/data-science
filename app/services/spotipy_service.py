@@ -3,26 +3,18 @@ import spotipy
 from spotipy import util
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from pprint import pprint
 
 
-# load_dotenv()
+load_dotenv()
 
-#
-# util.prompt_for_user_token("bi423x859c25z4xnvy06kquj4",
-#                            "user-library-read",
-#                            client_id=os.getenv("SPOTIFY_CLIENT_ID"),
-#                            client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
-#                            redirect_uri='http://localhost')
-
-
-client_id = '9a4e32732c6045289b1d85705c247a0f'
-client_secret = '0ec437eade2b42ef878ea7009de904ef'
+os.environ['SPOTIPY_CLIENT_ID'] = os.getenv('client_id')
+os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv('client_secret')
 
 
 def spotipy_api():
-    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
+    sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
     return sp
 
@@ -36,12 +28,15 @@ if __name__ == "__main__":
     sp = spotipy_api()
     # pprint(sp.recommendation_genre_seeds())
 
-    # result = sp.search(q="Walking On The Sun")
-    # print(result)
+    result = sp.track('2MLHyLy5z5l5YRp7momlgw')
+    pprint(result)
 
-    urn = 'spotify:track:2MLHyLy5z5l5YRp7momlgw'
-    track = sp.track(urn)
-    pprint(track)
+    print(result['artists'][0]['name'])
+    print(result['name'])
+
+    # urn = 'spotify:track:2MLHyLy5z5l5YRp7momlgw'
+    # track = sp.track(urn)
+    # pprint(track)
 
 
     # seed_artists = ['3jOstUTkEu2JkjvRdBA5Gu']
@@ -66,3 +61,17 @@ if __name__ == "__main__":
     #
     # # get genres
     # pprint(sp.recommendation_genre_seeds())
+
+
+    #
+    # util.prompt_for_user_token("bi423x859c25z4xnvy06kquj4",
+    #                            "user-library-read",
+    #                            client_id=os.getenv("SPOTIFY_CLIENT_ID"),
+    #                            client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
+    #                            redirect_uri='http://localhost')
+
+    #
+    # client_id = '9a4e32732c6045289b1d85705c247a0f'
+    # client_secret = '0ec437eade2b42ef878ea7009de904ef'
+
+    # sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))

@@ -1,9 +1,48 @@
 
 from flask import Blueprint, request
 from app.services import spotipy_service
+from app.log.log_error import log_error
 import json
 
 spotipy_routes = Blueprint("spotipy_routes", __name__)
+
+
+
+@spotipy_routes.route("/spotipy/get_track_data", methods=["GET"])
+def get_track_data():
+
+    try:
+        song_id = request.args.get("track_id")
+
+        track = sp.track(track_id)
+        features = sp.audio_features(tracks=[track_id])
+
+        print("features: {features}")
+
+        track = {
+        'song_id' : track[0]['track_id'],
+        'artist' : track[0]['artist'],
+        'danceability' : features[0]['danceability'],
+        'energy' : features[0]['energy'],
+        'key' : features[0]['key'],
+        'loudness' : features[0]['loudness'],
+        'mode' : features[0]['mode'],
+        'speechiness':features[0]['speechiness'],
+        'acousticness' : features[0]['acousticness'],
+        'instrumentalness' : features[0]['instrumentalness'],
+        'liveness' : features[0]['liveness'],
+        'valence' : features[0]['valence'],
+        'tempo' : features[0]['tempo'],
+        'duration_ms' : features[0]['duration_ms'],
+        'time_signature': features[0]['time_signature']
+        }
+
+    except Exception as e:
+        log_error(e)
+        return "Error with request.."
+
+
+    return json.dumps(track)
 
 
 
@@ -21,7 +60,7 @@ def get_track():
         return json.dumps(result)
 
     except Exception as e:
-        print(e)
+        log_error(e)
         return "Error with search\n" + str(e)
 
 
@@ -45,5 +84,5 @@ def get_audio_features():
         return json.dumps(result)
 
     except Exception as e:
-        print(e)
+        log_error(e)
         return "Error with search\n" + str(e)

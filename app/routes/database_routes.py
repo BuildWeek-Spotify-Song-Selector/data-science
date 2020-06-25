@@ -2,21 +2,27 @@
 
 from flask import Blueprint
 import pandas as pd
+from app.log.log_error import log_error
 
 
 database_routes = Blueprint("database_routes", __name__)
 
 
-
 @database_routes.route("/database/get_all_songs", methods=["GET"])
 def get_all_songs():
-    df = pd.read_csv("app/services/song_lists/song_list5.csv", sep=",")
+    try:
+        df = pd.read_csv("app/services/song_lists/song_list5.csv", sep=",")
 
-    print(df.shape)
+        print(df.shape)
 
-    input("Enter to get data: ")
+        input("Enter to get data: ")
 
-    return df.to_json(orient='records')
+        return df.to_json(orient='records')
+
+    except Exception as e:
+        log_error(e)
+        return "Error with request.."
+
 
 
 @database_routes.route("/database/generate_track_csv")

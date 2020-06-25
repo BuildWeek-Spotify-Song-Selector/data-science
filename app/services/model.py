@@ -4,7 +4,6 @@ from tensorflow.keras.models import load_model
 from pickle import load
 import keras
 
-[[ 4.56000e-01,  2.55000e-01,  9.00000e+00, -1.58050e+01, 1.00000e+00,  4.80000e-02,  9.46000e-01,  1.70000e-01, 9.51000e-01,  5.32000e-02,  1.16424e+02,  2.53067e+05,4.00000e+00]]
 
 
 class Prediction_Model:
@@ -52,6 +51,12 @@ class Prediction_Model:
 
         # return np.atleast_2d(x_data)
         return [x_data]
+
+
+global model
+
+model = Prediction_Model()
+
 
 
 if __name__ == "__main__":
