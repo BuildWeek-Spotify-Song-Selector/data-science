@@ -1,12 +1,14 @@
 
 from flask import Blueprint, request
 from app.services import spotipy_service
-from app.services.model import Prediction_Model
+from app.services.model import Prediction_Model, model
 from app.log.log_error import log_error
 import json
 
 
 model_routes = Blueprint("model_routes", __name__)
+
+
 
 
 @model_routes.route('/model/pred', methods=["GET"])
@@ -57,7 +59,6 @@ def song_info():
   # and receives a pandas dataframe with the predictions
 def call_model(track):
     # call saved model snd get predictions
-    model = Prediction_Model()
     track_prediction = model.predict(track)
 
     return track_prediction

@@ -42,6 +42,9 @@ def get_model_prediction(song_id):
 if __name__ == "__main__":
     #get_track("Walking On the Sun")
     #get_audio_features("2MLHyLy5z5l5YRp7momlgw")
-    get_model_prediction("2MLHyLy5z5l5YRp7momlgw")
+    data = ["2MLHyLy5z5l5YRp7momlgw"] * 50
+
+    for x in data:
+        get_model_prediction(x)
     #get_model_prediction("2MLHyLyp7momlgw")
     # print(1+2)

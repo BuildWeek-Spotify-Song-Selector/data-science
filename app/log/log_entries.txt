@@ -1,2 +1,0 @@
-{'06/24/2020, 21:48:57': AttributeError("'NoneType' object has no attribute 'split'")}
-{'06/24/2020, 21:50:17': UnboundLocalError("local variable 'model' referenced before assignment")}

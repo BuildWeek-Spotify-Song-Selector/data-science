@@ -5,6 +5,7 @@ from pickle import load
 import keras
 
 
+
 class Prediction_Model:
 
     def __init__(self):
@@ -50,6 +51,11 @@ class Prediction_Model:
 
         # return np.atleast_2d(x_data)
         return [x_data]
+
+
+global model
+
+model = Prediction_Model()
 
 
 
