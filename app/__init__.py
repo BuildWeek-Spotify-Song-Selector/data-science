@@ -9,7 +9,8 @@ from app.routes.model_routes import model_routes
 from app.routes.spotipy_routes import spotipy_routes
 from app.routes.log_routes import log_routes
 
-from app.services.model import Prediction_Model
+from app.services.model import *
+from app.services.database import *
 
 
 def create_app():

@@ -2,6 +2,7 @@
 from flask import Blueprint, request
 from app.services import spotipy_service
 from app.services.model import Prediction_Model, model
+from app.services.database import Song_Database
 from app.log.log_error import log_error
 import json
 
@@ -41,19 +42,37 @@ def song_info():
         'time_signature': features[0]['time_signature']
         }
 
-        prediction = call_model(track)
-
     except Exception as e:
         log_error(e)
         return "Error with request.."
 
 
-    track['song_id'] = song_id
+    track['songid'] = song_id
     track['track'] = meta['name']
     track['artist'] = meta['artists'][0]['name']
 
-    return json.dumps({"prediction" : [float(prediction[0][0]), float(prediction[0][1])],
-                       "track" : track})
+    db = Song_Database()
+
+    # look up if song apperars in database
+    lookup_track = db.get_track(song_id)
+
+    # add song if not in database
+    if not lookup_track:
+        prediction = call_model(track)
+        track['prediction'] = prediction[0]
+        db.add_track(track)
+
+    else:
+        if 'prediction' in lookup_track.keys():
+            prediction = lookup_track['prediction']
+        else:
+            prediction = call_model(track)
+            db.add_prediction(lookup_track, prediction[0])
+
+    # run closest vectors function
+    tracks = find_closest_neighbors(song_id, prediction)
+
+    return json.dumps(tracks)
 
   # this method calls the saved ML model based
   # and receives a pandas dataframe with the predictions
