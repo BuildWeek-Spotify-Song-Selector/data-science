@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
-from tensorflow.keras.models import load_model
 from pickle import load
-import keras
+from keras.models import load_model
 
 
 
@@ -35,8 +34,8 @@ class Prediction_Model:
 
     def predict(self, song_data):
         x_data = self.organize_song_data(song_data)
-        print(x_data)
-        print(f"Scaler: {self.scaler}")
+        # print(x_data)
+        # print(f"Scaler: {self.scaler}")
         x_train = self.scaler.transform(x_data)
         preds = self.encoder.predict(x_train)
 

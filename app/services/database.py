@@ -3,7 +3,6 @@
 import pymongo
 import pandas as pd
 import json
-from app.routes.model_routes import call_model
 from app.services.model import Prediction_Model, model
 
 class Song_Database:
@@ -19,7 +18,7 @@ class Song_Database:
 
         if "songs" not in collections:
             self.collection = self.database.songs
-            self.collection.insert_one({"_id":"init" ,"song_id":"placeholder"})
+            self.collection.insert_one({"_id":"init" ,"songid":"placeholder"})
 
         else:
             self.collection = self.database.songs
@@ -64,31 +63,51 @@ class Song_Database:
 
     def import_song_data(self):
 
-        df = pd.read_csv("song_lists/song_list5.csv", sep=",")
+        df = pd.read_csv("app/services/song_lists/song_list5.csv", sep=",")
         records = json.loads(df.to_json(orient="records"))
         self.collection.insert_many(records)
 
+        self.set_initial_predictions()
+
     def set_initial_predictions(self):
 
-        tracks = self.collection.find()
+        tracks = self.collection.find({"prediction": {"$exists" : False}})
 
-        i = len(tracks)
+        i = 0
         for x in tracks:
-            print(i, "remaining..")
-            prediction = call_model(x)
-            self.add_prediction(x, prediction[0])
-            i-=1
+            try:
+                print(i, "predicted..")
+                prediction = model.predict(x)
+
+                self.add_prediction(x, [float(prediction[0][0]),float(prediction[0][1])])
+
+            except:
+                continue
+            i+=1
 
 
 
 if __name__ == "__main__":
+    import pandas as pd
+    import json
 
-    song_database = Song_Database()
+    db = Song_Database()
+    search_tracks = json.dumps(list(db.get_predictions()))
 
-    tracks = song_database.collection.find()
+    df = pd.read_json(search_tracks)
+
+    print(df.head())
+
+    # song_database = Song_Database()
+    # #
+    # # song_database.set_initial_predictions()
+    #
+    #
+    # for x in song_database.get_predictions():
+    #     print(x)
 
 
-    # track = song_database.get_track("6t9dKp7Nf1t4HpYXOdeVNl")
+    # track = song_database.get_track("5X4Qm0rVLcZeeO4tSDmBg3")
     # print(f"track: {track}")
     # track['prediction'] = [2,32]
     #

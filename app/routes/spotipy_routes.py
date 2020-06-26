@@ -57,6 +57,7 @@ def get_track():
     try:
         sp = spotipy_service.spotipy_api()
         result = sp.search(q=track)
+        print(type(result))
         return json.dumps(result)
 
     except Exception as e:

@@ -1,0 +1,22 @@
+{'06/25/2020, 22:24:07': SpotifyException(400, -1, 'https://api.spotify.com/v1/tracks/2MLHyLyp7momlgw:\n invalid id')}
+{'06/25/2020, 22:24:40': NameError("name 'find_closest_neighbors' is not defined")}
+{'06/25/2020, 22:25:44': TypeError("'NoneType' object is not iterable")}
+{'06/25/2020, 22:26:30': TypeError("'NoneType' object is not iterable")}
+{'06/25/2020, 22:26:50': TypeError('string indices must be integers')}
+{'06/25/2020, 22:29:02': TypeError('string indices must be integers')}
+{'06/25/2020, 22:31:32': TypeError('string indices must be integers')}
+{'06/25/2020, 22:33:25': TypeError('string indices must be integers')}
+{'06/25/2020, 22:35:06': TypeError("'<' not supported between instances of 'dict' and 'str'")}
+{'06/25/2020, 22:36:09': TypeError("'<' not supported between instances of 'int' and 'str'")}
+{'06/25/2020, 22:37:02': KeyError('songid')}
+{'06/25/2020, 22:39:52': TypeError('Object of type dict_values is not JSON serializable')}
+{'06/25/2020, 22:41:08': TypeError("unhashable type: 'dict'")}
+{'06/25/2020, 22:52:21': TypeError('Object of type dict_values is not JSON serializable')}
+{'06/25/2020, 23:38:24': TypeError('Object of type dict_values is not JSON serializable')}
+{'06/25/2020, 23:40:41': TypeError('Object of type ObjectId is not JSON serializable')}
+{'06/25/2020, 23:41:33': TypeError('Object of type ObjectId is not JSON serializable')}
+{'06/25/2020, 23:43:45': TypeError('Object of type ObjectId is not JSON serializable')}
+{'06/25/2020, 23:45:45': TypeError('Object of type ObjectId is not JSON serializable')}
+{'06/25/2020, 23:55:03': TypeError('Object of type ObjectId is not JSON serializable')}
+{'06/26/2020, 00:01:13': JSONDecodeError('Expecting property name enclosed in double quotes: line 1 column 3 (char 2)')}
+{'06/26/2020, 00:03:00': TypeError('Object of type ObjectId is not JSON serializable')}
