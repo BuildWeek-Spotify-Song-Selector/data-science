@@ -2,16 +2,17 @@ import pandas as pd
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from pandas.io.json import json_normalize
+from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, request, session, make_response,session,redirect
-
+load_dotenv()
 
 app = Flask(__name__)
 
-SPOT_CLIENT_ID = "417789dcea984a95a3d5f4b325787e46"
-SPOT_CLIENT_SECRET = "c9a76a25685b4899ae1964898df71dab"
+#SPOT_CLIENT_ID = "417789dcea984a95a3d5f4b325787e46"
+#SPOT_CLIENT_SECRET = "c9a76a25685b4899ae1964898df71dab"
 
-client_id = SPOT_CLIENT_ID
-client_secret = SPOT_CLIENT_SECRET
+client_id = os.getenv("SPOT_CLIENT_ID")
+client_secret = os.getenv("SPOT_CLIENT_SECRET")
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 
 @app.route('/')
