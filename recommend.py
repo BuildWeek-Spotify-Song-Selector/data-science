@@ -8,8 +8,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-#SPOT_CLIENT_ID = "417789dcea984a95a3d5f4b325787e46"
-#SPOT_CLIENT_SECRET = "c9a76a25685b4899ae1964898df71dab"
+
 
 client_id = os.getenv("SPOT_CLIENT_ID")
 client_secret = os.getenv("SPOT_CLIENT_SECRET")
