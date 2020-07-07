@@ -12,8 +12,6 @@ import numpy as np
 model_routes = Blueprint("model_routes", __name__)
 
 
-
-
 @model_routes.route('/model/pred', methods=["GET"])
 def song_info():
 
@@ -23,32 +21,6 @@ def song_info():
         num_songs = int(request.args.get("num_songs"))
         print('-------------trackid--------------------')
 
-        # spotify object to access API
-        sp = spotipy_service.spotipy_api()
-        meta = sp.track(song_id)
-        features = sp.audio_features(tracks=[song_id])
-
-        # print("features: {features}")
-
-        track = {
-        'danceability' : features[0]['danceability'],
-        'energy' : features[0]['energy'],
-        'key' : features[0]['key'],
-        'loudness' : features[0]['loudness'],
-        'mode' : features[0]['mode'],
-        'speechiness':features[0]['speechiness'],
-        'acousticness' : features[0]['acousticness'],
-        'instrumentalness' : features[0]['instrumentalness'],
-        'liveness' : features[0]['liveness'],
-        'valence' : features[0]['valence'],
-        'tempo' : features[0]['tempo'],
-        'duration_ms' : features[0]['duration_ms'],
-        'time_signature': features[0]['time_signature'],
-        'songid' : song_id,
-        'track' : meta['name'],
-        'artist' : meta['artists'][0]['name']
-        }
-
         # get song database
         db = Song_Database()
 
@@ -57,6 +29,8 @@ def song_info():
 
         # add song if not in database
         if not lookup_track:
+            track = get_track_data(song_id)
+
             print("calling model")
             prediction = call_model(track)
             track['prediction'] = prediction
@@ -68,6 +42,8 @@ def song_info():
             if 'prediction' in lookup_track.keys():
                 prediction = lookup_track['prediction']
             else:
+                track = get_track_data(song_id)
+
                 print("calling model")
                 prediction = call_model(track)
                 print("adding prediction to song")
@@ -87,6 +63,38 @@ def song_info():
         log_error(e)
         return "Error with request.."
 
+
+
+def get_track_data(song_id):
+    # spotify object to access API
+    sp = spotipy_service.spotipy_api()
+    meta = sp.track(song_id)
+    features = sp.audio_features(tracks=[song_id])
+
+    # print("features: {features}")
+
+    track = {
+    'danceability' : features[0]['danceability'],
+    'energy' : features[0]['energy'],
+    'key' : features[0]['key'],
+    'loudness' : features[0]['loudness'],
+    'mode' : features[0]['mode'],
+    'speechiness':features[0]['speechiness'],
+    'acousticness' : features[0]['acousticness'],
+    'instrumentalness' : features[0]['instrumentalness'],
+    'liveness' : features[0]['liveness'],
+    'valence' : features[0]['valence'],
+    'tempo' : features[0]['tempo'],
+    'duration_ms' : features[0]['duration_ms'],
+    'time_signature': features[0]['time_signature'],
+    'songid' : song_id,
+    'track' : meta['name'],
+    'artist' : meta['artists'][0]['name']
+    }
+
+    return track
+
+
   # this method calls the saved ML model based
   # and receives a pandas dataframe with the predictions
 def call_model(track):
@@ -94,7 +102,6 @@ def call_model(track):
     track_prediction = model.predict(track)
 
     return track_prediction
-
 
 
 def find_nearest_neighbors(track, prediction, user_playlist, num_songs):
