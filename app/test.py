@@ -33,7 +33,7 @@ def get_audio_features(song_id):
 def get_model_prediction(song_id):
     params = {"song_id" : song_id,
               "user_playlist" : [],
-              "num_songs":3}
+              "num_songs":7}
 
     # song_id = request.args.get('song_id')
     # user_playlist = request.args.get("user_playlist")
@@ -43,7 +43,9 @@ def get_model_prediction(song_id):
     response = requests.get(http + "/model/pred", params=params, headers=headers)
 
     # pprint(json.loads(response.text))
-    pprint(response.text)
+    r = json.loads(response.text)
+    pprint(r)
+    print("\n")
 
 
 

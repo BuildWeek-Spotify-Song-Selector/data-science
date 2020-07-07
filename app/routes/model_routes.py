@@ -116,7 +116,11 @@ def find_nearest_neighbors(track, prediction, user_playlist, num_songs):
             if x['songid'] not in user_song_ids:
 
                 song_vector = np.asarray(x['prediction']).astype(int)
-                idx = sum(np.abs(song_vector - prediction))
+                idx = np.abs(song_vector - prediction)
+                idx = np.sqrt(idx[0]**2 + idx[1]**2)
+                # print(idx, return_tracks)
+                # idx = sum(np.abs(song_vector - prediction))
+
 
                 if len(return_tracks.keys())<=num_songs:
                     return_tracks[idx] = x
@@ -134,9 +138,6 @@ def find_nearest_neighbors(track, prediction, user_playlist, num_songs):
 
 
     return return_tracks.values()
-
-
-
 
 
 
