@@ -42,16 +42,18 @@ def get_model_prediction(song_id):
     headers = {"content-type" : "application/json"}
     response = requests.get(http + "/model/pred", params=params, headers=headers)
 
-    pprint(json.loads(response.text))
+    # pprint(json.loads(response.text))
+    pprint(response.text)
 
 
 
 if __name__ == "__main__":
     # get_track("Walking On the Sun")
+    # get_track("2MLHyLy5z5l5YRp7momlgw")
     # get_audio_features("2MLHyLy5z5l5YRp7momlgw")
     # data = ["2MLHyLy5z5l5YRp7momlgw"] * 50
     #
     # for x in data:
     #     get_model_prediction(x)
     get_model_prediction("2MLHyLy5z5l5YRp7momlgw")
-    # print(1+2)
+    # 'prediction': [4.786012649536133, 7.772339344024658]

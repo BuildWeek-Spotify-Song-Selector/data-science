@@ -3,7 +3,7 @@
 import pymongo
 import pandas as pd
 import json
-from app.services.model import Prediction_Model, model
+# from app.services.model import Prediction_Model, model
 
 class Song_Database:
 
@@ -91,14 +91,14 @@ if __name__ == "__main__":
     import pandas as pd
     import json
 
-    db = Song_Database()
-    search_tracks = json.dumps(list(db.get_predictions()))
+    # db = Song_Database()
+    # search_tracks = json.dumps(list(db.get_predictions()))
+    #
+    # df = pd.read_json(search_tracks)
+    #
+    # print(df.head())
 
-    df = pd.read_json(search_tracks)
-
-    print(df.head())
-
-    # song_database = Song_Database()
+    song_database = Song_Database()
     # #
     # # song_database.set_initial_predictions()
     #
@@ -107,8 +107,8 @@ if __name__ == "__main__":
     #     print(x)
 
 
-    # track = song_database.get_track("5X4Qm0rVLcZeeO4tSDmBg3")
-    # print(f"track: {track}")
+    track = song_database.get_track("2MLHyLy5z5l5YRp7momlgw")
+    print(f"track: {track}")
     # track['prediction'] = [2,32]
     #
     # song_database.add_prediction(track, [.4,.1])

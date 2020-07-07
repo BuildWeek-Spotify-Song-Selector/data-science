@@ -28,7 +28,7 @@ def song_info():
         meta = sp.track(song_id)
         features = sp.audio_features(tracks=[song_id])
 
-        print("features: {features}")
+        # print("features: {features}")
 
         track = {
         'danceability' : features[0]['danceability'],
@@ -70,10 +70,14 @@ def song_info():
                 db.add_prediction(lookup_track, prediction[0])
 
             tracks = find_nearest_neighbors(lookup_track, prediction, user_playlist, num_songs)
-            tracks = [x for x in tracks]
 
+            for x in tracks:
+                del x["_id"]
+                del x['prediction']
 
-        return str(tracks)
+            tracks = list(tracks)
+
+        return json.dumps(tracks)
 
     except Exception as e:
         log_error(e)
@@ -92,36 +96,37 @@ def call_model(track):
 def find_nearest_neighbors(track, prediction, user_playlist, num_songs):
     db = Song_Database()
 
-    print("playlist")
+    # print("playlist")
     if user_playlist:
         user_song_ids = [x["songid"] for x in user_playlist] + track["songid"]
     else:
         user_song_ids = track["songid"]
 
-    print("tracks")
+    # print("tracks")
     search_tracks = db.get_predictions()
     return_tracks = {}
 
     print("searching")
     for x in search_tracks:
         try:
-            if x['songid'] in user_song_ids:
-                continue
-            song_vector = np.asarray(x['prediction']).astype(int)
-            idx = sum(np.abs(song_vector - prediction))
+            if x['songid'] not in user_song_ids:
 
-            if len(return_tracks.keys())<=num_songs:
-                return_tracks[idx] = x
+                song_vector = np.asarray(x['prediction']).astype(int)
+                idx = sum(np.abs(song_vector - prediction))
 
-            else:
-                minimum = min(return_tracks.keys())
-
-                if minimum>idx:
-                    del return_tracks[minimum]
+                if len(return_tracks.keys())<=num_songs:
                     return_tracks[idx] = x
 
+                else:
+                    maximum= max(return_tracks.keys())
+
+                    if maximum>idx:
+                        del return_tracks[maximum]
+                        return_tracks[idx] = x
+
         except Exception as e:
-            print(f"Error: {e}")
+            # print(f"Error: {e}")
+            continue
 
 
     return return_tracks.values()

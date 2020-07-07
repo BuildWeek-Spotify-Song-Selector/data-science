@@ -82,6 +82,9 @@ def get_audio_features():
         else:
             result = sp.audio_features(tracks=[song_id])
 
+        print(type(result))
+        print(result)
+
         return json.dumps(result)
 
     except Exception as e:

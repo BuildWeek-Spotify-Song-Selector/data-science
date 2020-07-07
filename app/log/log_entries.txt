@@ -20,3 +20,11 @@
 {'06/25/2020, 23:55:03': TypeError('Object of type ObjectId is not JSON serializable')}
 {'06/26/2020, 00:01:13': JSONDecodeError('Expecting property name enclosed in double quotes: line 1 column 3 (char 2)')}
 {'06/26/2020, 00:03:00': TypeError('Object of type ObjectId is not JSON serializable')}
+{'07/06/2020, 20:55:59': TypeError('Object of type ObjectId is not JSON serializable')}
+{'07/06/2020, 20:56:54': TypeError('Object of type dict_values is not JSON serializable')}
+{'07/06/2020, 20:58:45': TypeError('Object of type ObjectId is not JSON serializable')}
+{'07/06/2020, 21:00:21': TypeError('Object of type ObjectId is not JSON serializable')}
+{'07/06/2020, 21:01:15': TypeError('Object of type ObjectId is not JSON serializable')}
+{'07/06/2020, 21:02:30': TypeError('Object of type dict_values is not JSON serializable')}
+{'07/06/2020, 21:04:22': TypeError('Object of type dict_values is not JSON serializable')}
+{'07/06/2020, 21:05:40': TypeError('Object of type dict_values is not JSON serializable')}
