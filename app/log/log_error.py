@@ -10,5 +10,5 @@ def log_error(error):
 
 
 def get_errors():
-    with FileReadBackwards('log_entries.txt', encoding='utf-8') as log:
-        return log
+    with FileReadBackwards('app/log/log_entries.txt', encoding='utf-8') as log:
+        return list(log)

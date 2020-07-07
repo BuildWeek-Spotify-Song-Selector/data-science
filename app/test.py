@@ -47,6 +47,12 @@ def get_model_prediction(song_id):
     pprint(r)
     print("\n")
 
+def get_log_data():
+    headers = {"content-type" : "application/json"}
+    response = requests.get(http + "/log/get_logs")
+
+    pprint(json.loads(response.text))
+
 
 
 if __name__ == "__main__":
@@ -57,5 +63,6 @@ if __name__ == "__main__":
     #
     # for x in data:
     #     get_model_prediction(x)
-    get_model_prediction("3cfOd4CMv2snFaKAnMdnvK")
+    # get_model_prediction("3cfOd4CMv2snFaKAnMdnvK")
     # 'prediction': [4.786012649536133, 7.772339344024658]
+    get_log_data()
