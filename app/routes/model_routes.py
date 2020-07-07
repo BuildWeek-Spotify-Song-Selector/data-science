@@ -44,7 +44,7 @@ def song_info():
         'tempo' : features[0]['tempo'],
         'duration_ms' : features[0]['duration_ms'],
         'time_signature': features[0]['time_signature'],
-        'song_id' : song_id,
+        'songid' : song_id,
         'track' : meta['name'],
         'artist' : meta['artists'][0]['name']
         }
@@ -57,8 +57,10 @@ def song_info():
 
         # add song if not in database
         if not lookup_track:
+            print("calling model")
             prediction = call_model(track)
-            track['prediction'] = prediction[0]
+            track['prediction'] = prediction
+            print("adding track to database")
             db.add_track(track)
             tracks = find_nearest_neighbors(track, prediction, user_playlist, num_songs)
 
@@ -66,16 +68,18 @@ def song_info():
             if 'prediction' in lookup_track.keys():
                 prediction = lookup_track['prediction']
             else:
+                print("calling model")
                 prediction = call_model(track)
-                db.add_prediction(lookup_track, prediction[0])
+                print("adding prediction to song")
+                db.add_prediction(lookup_track, prediction)
 
             tracks = find_nearest_neighbors(lookup_track, prediction, user_playlist, num_songs)
 
-            for x in tracks:
-                del x["_id"]
-                del x['prediction']
+        for x in tracks:
+            del x["_id"]
+            del x['prediction']
 
-            tracks = list(tracks)
+        tracks = list(tracks)
 
         return json.dumps(tracks)
 

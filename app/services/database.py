@@ -3,7 +3,7 @@
 import pymongo
 import pandas as pd
 import json
-# from app.services.model import Prediction_Model, model
+from app.services.model import Prediction_Model, model
 
 class Song_Database:
 

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from pickle import load
+from keras.models import load_model
 
 
 
@@ -18,26 +19,28 @@ class Prediction_Model:
                         "liveness",
                         "valence",
                         "tempo",
-                        "duration_ms"]
+                        "duration_ms",
+                        "time_signature"]
 
         self.load()
 
 
 
     def load(self):
-        # self.scaler = load(open('app/services/model_data/scaler.pkl', 'rb'))
-        # self.encoder = load_model('app/services/model_data/encoder.h5')
+        self.scaler = load(open('app/services/model_data/scaler.pkl', 'rb'))
+        self.encoder = load_model('app/services/model_data/encoder.h5')
         print("model loaded..")
 
 
     def predict(self, song_data):
         x_data = self.organize_song_data(song_data)
-        # print(x_data)
+        print(x_data)
         # print(f"Scaler: {self.scaler}")
+
         x_train = self.scaler.transform(x_data)
         preds = self.encoder.predict(x_train)
 
-        return preds
+        return preds[0].tolist()
 
 
     def organize_song_data(self, song_data):
@@ -56,10 +59,7 @@ model = Prediction_Model()
 
 
 if __name__ == "__main__":
-    data = np.atleast_2d([ 4.56000e-01,  2.55000e-01,  9.00000e+00, -1.58050e+01, 1.00000e+00,  4.80000e-02,  9.46000e-01,  1.70000e-01, 9.51000e-01,  5.32000e-02,  1.16424e+02,  2.53067e+05])
-    scaler = load(open('model_data/scaler2.pkl', 'rb'))
-    data = scaler.transform(data)
-    encoder = load(open('model_data/VAE_Encoder.pkl', 'rb'))
-    preds = encoder.predict(data)
+    data = {'danceability': 0.731, 'energy': 0.867, 'key': 11, 'loudness': -5.881, 'mode': 1, 'speechiness': 0.032, 'acousticness': 0.0395, 'instrumentalness': 0, 'liveness': 0.0861, 'valence': 0.776, 'tempo': 104.019, 'duration_ms': 200373, 'time_signature': 4, 'song_id': '3cfOd4CMv2snFaKAnMdnvK', 'track': 'All Star', 'artist': 'Smash Mouth'}
+    preds = model.predict(data)
 
     print(preds)
