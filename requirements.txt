@@ -4,7 +4,7 @@ scipy==1.4.1
 file_read_backwards==2.0.0
 Flask==1.1.2
 Flask-Cors==3.0.8
-numpy==1.18.5
+numpy==1.22.0
 pandas==1.0.3
 json5==0.9.5
 oauthlib==3.1.0
